@@ -28,3 +28,7 @@ iii. Uses async/await directly in component
 Installation
 
 1. for customize installation "npx create-next-app@latest"
+2. when next js application starts it calls the layout.js file which contains RootLayout with children and render the page.js (which is a children) of app/layout.js
+3. to create any page then create a folder under app folder with page name and create a page.jsx file (remember u should not change the name of page.jsx. it will always page.jsx name neither it will not work)
+
+4. created a details folder and page.jsx under about folder to show details.
