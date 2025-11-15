@@ -4,7 +4,7 @@ import React from "react";
 export default function AboutPage() {
   let code = 5;
   // console.log(code);
-  // 7.1 manually throw error. now go to the about page it will show error
+  // 7.1 manually throw error. now go to the about page in the browser it will show error
   // throw new Error("Something went wrong! from about page");
 
   return <div>about page</div>;

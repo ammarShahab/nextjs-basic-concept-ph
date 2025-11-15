@@ -27,7 +27,7 @@ export default function BlogPage() {
   return (
     <>
       <h3>Blog Page</h3>
-      {/* 10.2 */}
+      {/* 10.2 map over the blogsCollection*/}
       <div>
         {blogsCollection.map((blog) => (
           <div key={blog.id}>

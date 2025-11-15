@@ -32,3 +32,25 @@ Installation
 3. to create any page then create a folder under app folder with page name and create a page.jsx file (remember u should not change the name of page.jsx. it will always page.jsx name neither it will not work)
 
 4. created a details folder and page.jsx under about folder to show details.
+
+5. created a loading component the name of loading.jsx under src\app\loading.js which will be shown when any page is loading. its a global loading component. u can also create a custom loading component for any page
+
+7.0 created a error file under app folder which is a global error page to show error. you can also create a custom error page for any page like loading.jsx
+
+7.1 manually throw error. now go to the about page in the browser it will show error
+
+7.2 show the error in ui
+
+7.3 created a custom error page for about details page
+7.4 manually throw error. now go to the about details page it will show error
+7.5 show the error in ui
+8.0 if u want to create another layout for about page (if u want to add any kind of common layout for about page like nav) then create a layout.jsx file under the about page folder. it will be applied to the about page only. it will not be applied to any other page.
+9.0 create a link to navigation.
+
+10. to see the details of blog page first we create the [id] folder and create the page.jsx with using async function
+
+10.1 make some fake blog data
+
+10.2 map over the blogsCollection
+
+10.3 pass params to see that the id is received or not

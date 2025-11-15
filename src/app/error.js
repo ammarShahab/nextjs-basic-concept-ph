@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-// 7.0 created a error file under app folder and create a global error page to show error. you can also create a custom error page for any page like loading.jsx
+// 7.0 created a error file under app folder which is a global error page to show error. you can also create a custom error page for any page like loading.jsx
 export default function Error({ error, reset }) {
   useEffect(() => {
     // Log the error to an error reporting service

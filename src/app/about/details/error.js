@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-// 7.4 created a custom error page for about details page
+// 7.3 created a custom error page for about details page
 export default function Error({ error, reset }) {
   useEffect(() => {
     // Log the error to an error reporting service

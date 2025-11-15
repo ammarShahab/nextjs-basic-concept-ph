@@ -1,4 +1,4 @@
-// 8.0 if u want to create another layout for about layout page then create a layout.jsx file under that page folder and import that layout in the page.jsx file. it will be applied to that page only. it will not be applied to any other page.
+// 8.0 if u want to create another layout for about page (if u want to add any kind of common layout for about page like nav) then create a layout.jsx file under the about page folder. it will be applied to the about page only. it will not be applied to any other page.
 export default function AboutLayout({ children }) {
   return (
     <div>
