@@ -7,7 +7,7 @@ import Link from "next/link";
 export default async function BlogDetailsPage({ params }) {
   //   console.log(params.id);
 
-  // 12.0 show the blog details in ui to ui
+  // 12.0 show the blog details in ui.
   const { id } = await params;
 
   const response = await fetch(
