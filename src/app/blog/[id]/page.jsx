@@ -2,7 +2,10 @@ import React from "react";
 import blogsCollections from "../../../app/data/blogsCollection.json";
 import Link from "next/link";
 
-// 13.1 we use the following function as per documentation of ISR. now when we run npm run build (also see in terminal of making the blog static) and see in network tab there is no blog is fetched because it is now static.
+// 13.3 use revalidate to update the cache after every 60 seconds i.e as the blogs a static if u want to get the updated blog in every 60 seconds.
+export const revalidate = 60;
+
+// 13.1 we use the following function generateStaticParams as per documentation of ISR. now when we run npm run build (also see in terminal of making the blog static) and see in network tab there is no blog is fetched because it is now static. It sends the data in a chunk to make it static.
 export async function generateStaticParams() {
   const posts = await fetch("https://api.vercel.app/blog").then((res) =>
     res.json()
@@ -20,8 +23,7 @@ export default async function BlogDetailsPage({ params }) {
   // 12.0 show the blog details in ui.
   const { id } = await params;
 
-  // 13.0 as this page is dynamic but we want to make it static using (ISR) Incremental Static Regeneration.
-
+  // 13.0 as this page is dynamic but we want to make it static using (ISR) Incremental Static Regeneration. When we use static, if a page need to be updated not frequently we make it static. When we use dynamic , if a page need to be updated frequently we make it dynamic.
   const response = await fetch(
     `https://api.vercel.app/blog/${id}` /* {
     cache: "no-store",
