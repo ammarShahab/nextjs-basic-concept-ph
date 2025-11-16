@@ -35,7 +35,7 @@ export default async function BlogPage() {
   } */
   );
   const blogsCollection = await response.json();
-  console.log(blogsCollection);
+  // console.log(blogsCollection);
 
   return (
     <>
