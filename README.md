@@ -54,3 +54,80 @@ Installation
 10.2 map over the blogsCollection
 
 10.3 pass params to see that the id is received or not
+
+What are the Rendering Options (SSR, SSG, ISR)?
+Ans:
+
+⭐ 1. SSR – Server-Side Rendering
+
+HTML is generated on every request.
+Always fetches fresh data.
+
+Use when:
+✔ Live data (dashboard, admin panel, real-time prices)
+✔ User-specific data (auth-based content)
+
+Example (Next.js App Router)
+export const dynamic = "force-dynamic"; // enable SSR
+
+export default async function Page() {
+const res = await fetch("https://api.example.com/users", {
+cache: "no-store", // no caching
+});
+
+const data = await res.json();
+return <div>{JSON.stringify(data)}</div>;
+}
+
+What happens?
+i. User visits page → server fetches data → sends fresh HTML
+ii. Happens every time
+
+⭐ 2. SSG – Static Site Generation
+
+HTML is generated once during build time.
+Fastest performance.
+
+Use when:
+✔ Data that doesn’t change often
+✔ Blogs, documentation, landing pages
+
+Example
+export const dynamic = "force-static"; // default behavior
+
+export default async function Page() {
+const res = await fetch("https://api.example.com/posts");
+const data = await res.json();
+
+return <div>{JSON.stringify(data)}</div>;
+}
+
+What happens?
+i. HTML generated at build time (npm run build)
+ii. Served instantly from CDN
+iii. Does not fetch new data unless rebuild
+
+⭐ 3. ISR – Incremental Static Regeneration
+
+Static page that updates automatically after an interval.
+You get performance of SSG but with auto refresh.
+
+Use when:
+✔ Blogs updated sometimes
+✔ E-commerce products
+✔ News articles
+
+Example
+export const revalidate = 60; // rebuild page every 60 seconds
+
+export default async function Page() {
+const res = await fetch("https://api.example.com/news");
+const data = await res.json();
+
+return <div>{JSON.stringify(data)}</div>;
+}
+
+What happens?
+i. Page is static initially
+ii. After 60 seconds, the next visitor triggers background regeneration
+iii. Updated page is shown to everyone
