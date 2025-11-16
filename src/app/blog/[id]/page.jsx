@@ -2,6 +2,16 @@ import React from "react";
 import blogsCollections from "../../../app/data/blogsCollection.json";
 import Link from "next/link";
 
+// 13.1 we use the following function as per documentation of ISR. now when we run npm run build (also see in terminal of making the blog static) and see in network tab there is no blog is fetched because it is now static.
+export async function generateStaticParams() {
+  const posts = await fetch("https://api.vercel.app/blog").then((res) =>
+    res.json()
+  );
+  return posts.map((post) => ({
+    id: String(post.id),
+  }));
+}
+
 // 10. to see the details of blog page first we create the [id] folder and create the page.jsx with using async function
 // 10.3 pass params to see that the id is received or not
 export default async function BlogDetailsPage({ params }) {
@@ -9,6 +19,8 @@ export default async function BlogDetailsPage({ params }) {
 
   // 12.0 show the blog details in ui.
   const { id } = await params;
+
+  // 13.0 as this page is dynamic but we want to make it static using (ISR) Incremental Static Regeneration.
 
   const response = await fetch(
     `https://api.vercel.app/blog/${id}` /* {
