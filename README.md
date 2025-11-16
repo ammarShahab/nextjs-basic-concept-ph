@@ -55,7 +55,7 @@ Installation
 
 10.3 pass params to see that the id is received or not
 
-What are the Rendering Options (SSR, SSG, ISR)?
+What are the Rendering Options (SSR, SSG, ISR) or Next js rendering strategies?
 Ans:
 
 ⭐ 1. SSR – Server-Side Rendering
@@ -83,6 +83,15 @@ What happens?
 i. User visits page → server fetches data → sends fresh HTML
 ii. Happens every time
 
+Use case:
+i. Best for real time or dynamic content i.e user dashboard
+
+Limitation:
+i. Low performance
+
+Flow: request => server => data fetch => render html in server => then render html in browser
+Note: as two types of rendering that's why performance is slow.
+
 ⭐ 2. SSG – Static Site Generation
 
 HTML is generated once during build time.
@@ -107,7 +116,12 @@ i. HTML generated at build time (npm run build)
 ii. Served instantly from CDN
 iii. Does not fetch new data unless rebuild
 
-⭐ 3. ISR – Incremental Static Regeneration
+Limitation:
+i. frequently changed dynamic data cannot be handled properly
+
+Flow: request => hits CDN(Content Delivery Network) => pre-render the html => send to browser
+
+⭐ 3. ISR – Incremental Static Regeneration also known as Hybrid Rendering (Combination of SSG and SSR)
 
 Static page that updates automatically after an interval.
 You get performance of SSG but with auto refresh.
@@ -127,7 +141,27 @@ const data = await res.json();
 return <div>{JSON.stringify(data)}</div>;
 }
 
+Flow:
+request => CDN => (Old Html) if doesn't exist any data then go to another request following
+|
+|  
+|==> go to data source => background rebuild after x seconds => then replace old CDN HTML (Old Html)
+
 What happens?
 i. Page is static initially
-ii. After 60 seconds, the next visitor triggers background regeneration
+ii. After x seconds, the next visitor triggers background regeneration
 iii. Updated page is shown to everyone
+
+⭐ 4. CSR – Client Side Rendering
+Performance:
+i. First load is slow
+ii. update is fast
+
+Best for: Dashboard, chat apps, Analytics
+
+Flow: Request => Fetch Data => parse backend data => Render in browser
+
+What is RSC - React Server Component?
+Flow: server fetches the data => serializable payload (i.e data is send as chunk) => in client side minimum js is loaded which increase the performance
+
+Next js caching flow?
