@@ -7,9 +7,9 @@ export default function BlogCard({ blog }) {
     <div className="bg-white rounded-xl shadow-md p-5 border hover:shadow-lg transition">
       <h2 className="text-xl font-bold mb-2">{blog.title}</h2>
 
-      <p className="text-gray-600 text-sm mb-3">
+      {/* <p className="text-gray-600 text-sm mb-3">
         {blog.content.slice(0, 90)}...
-      </p>
+      </p> */}
 
       <div className="text-xs text-gray-500 mb-3">
         <p>
