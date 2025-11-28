@@ -55,7 +55,7 @@ Installation
 
 10.3 pass params to see that the id is received or not
 
-What are the Rendering Options (SSR, SSG, ISR) or Next js rendering strategies?
+A. What are the Rendering Options (SSR, SSG, ISR) or Next js rendering strategies?
 Ans:
 
 ⭐ 1. SSR – Server-Side Rendering
@@ -164,4 +164,70 @@ Flow: Request => Fetch Data => parse backend data => Render in browser
 What is RSC - React Server Component?
 Flow: server fetches the data => serializable payload (i.e data is send as chunk) => in client side minimum js is loaded which increase the performance
 
-Next js caching flow?
+B. Next js caching flow?
+=> Next.js improves your application's performance and reduces costs (cost is depends on per request call so to reduce the cost by using caching) by caching rendering work and data requests.
+
+What is the 3W(What, When, Where) & 3H(How, How Often, How long) framework?
+=>It is used for engineering purpose which is a rendering decision guide.
+
+3W:
+What => What data is needed (Static/ Dynamic)
+When => When data is changed (never, sometimes, always)
+Where => Where it is rendered (server side or client side)
+
+3H:
+How => How data will fetch (build time, run time, client fetch)
+How often => How often does it change (second, minutes, days)
+How long => How long should u cache (short, medium, forever)
+
+Following are different caching mechanisms and their purpose:
+
+| Mechanism               | What                       | Where  | Purpose                                         | Duration                        |
+| ----------------------- | -------------------------- | ------ | ----------------------------------------------- | ------------------------------- |
+| **Request Memoization** | Return values of functions | Server | Re-use data in a React Component tree           | Per-request lifecycle           |
+| **Data Cache**          | Data                       | Server | Store data across user requests and deployments | Persistent (can be revalidated) |
+| **Full Route Cache**    | HTML and RSC payload       | Server | Reduce rendering cost and improve performance   | Persistent (can be revalidated) |
+| **Router Cache**        | RSC Payload                | Client | Reduce server requests on navigation            | User session or time-based      |
+
+Request Memoization:
+The fetch method which is used in Next.js is customized by Next.js. Using fetch when u hit any url it will memorize the data on first hit. If u hit second time in the same url it will not send the request in server because after second hit the data will come from the request memoization where the data is cached.
+
+Example:
+
+async function getItem() {
+// The `fetch` function is automatically memoized and the result
+// is cached
+const res = await fetch('https://.../item/1')
+return res.json()
+}
+
+// This function is called twice, but only executed the first time
+const item = await getItem() // cache MISS
+
+// The second call could be anywhere in your route
+const item = await getItem() // cache HIT
+
+Following is the flow chart of request memoization
+
+Route: `/a`
+
+               SERVER
+
+───────────────────────────────────────────────
+In-memory Request Memoization
+(stores function returns)
+───────────────────────────────────────────────
+
+Data Flow (Single Render Pass)
+
+1. fetch('/item/1') → MISS (request memoization) → HIT (Data Source) → SET (memoize)
+2. fetch('/item/1') → HIT (memoized)
+3. fetch('/item/1') → HIT (memoized)
+
+### Summary
+
+- First fetch = **MISS** memoization, then hits the data source, then memoized.
+- Subsequent fetches in the same render pass = **HIT** from memoization.
+- No additional server or data source calls occur during the same request cycle.
+
+There is so many features in nextjs u need to explore
