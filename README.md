@@ -214,7 +214,7 @@ Following is the flow chart of request memoization
 Data Flow (Single Render Pass)
 
 <p align="center">
-  <img src="/public/img/request-memoization.avif" width="500" />
+  <img src="/public/img/request-memoization.avif" width="800" />
 </p>
 
 1. fetch('/item/1') → MISS (request memoization i.e cache miss) → HIT (Data Source) → SET (memoize i.e set data in cache)
