@@ -213,6 +213,10 @@ Following is the flow chart of request memoization
 
 Data Flow (Single Render Pass)
 
+<p align="center">
+  <img src="/public/img/request-memoization.avif" width="500" />
+</p>
+
 1. fetch('/item/1') → MISS (request memoization i.e cache miss) → HIT (Data Source) → SET (memoize i.e set data in cache)
 2. fetch('/item/1') → HIT (memoized i.e cache hit)
 3. fetch('/item/1') → HIT (memoized i.e cache hit)
@@ -241,7 +245,7 @@ cache: "no-store" => কোন cache ব্যাবহার করবে ন�
 cache: "reload" => server থেকে নতুন data আনবে।
 cache: "force-cache" => সবসময় cache theke data আনবে।
 
-**b. Next.js fetch cache (Server Sided):**
+**b. Next.js fetch cache(Data Cache) (Server Sided):**
 যখন অনেক user একই পেজ visit করে তখন Next.js server এ data cache বা জমা করে রাখে। তাই একি data বার বার server থেকে আনা লাগে না। যা website কে অনেক দ্রুত করে।
 
 Example:
@@ -250,13 +254,10 @@ cache: "no-store" => প্রতিবার নতুন data আনবে (SS
 next: {revalidate: 10} => cache হবে কিন্তু প্রতি ১০ সেকেন্ড পর পর data update হবে (ISR)।
 
 Data Flow:
-| -----------------------------------Server-------------------------------------------------------------------- |
-| ------------------------------------------------------------------------------------------------------------- |
-|---------Rendering---------------------|-----Request Memoization------|----Data cache-------|---Data Source--- |
 
-"/a" ---> fetch('', {cache:force-cache}) ----------> Miss -----------> |---------> Miss----->| ------> Hit----->| <---------------------------------------------------- Set <------------------------ Set <-----------------------|
-
-"/b" ---> fetch('', {cache:no-store}) ----------> Miss -----------> |---------> Skip----->| -------- Hit -----> | <---------------------------------------------------- Set <-----------------------------------------------------|
+<p align="center">
+  <img src="/public/img/data-cache.avif" width="800" />
+</p>
 
 Note: You can Revalidate the Data cache.
 
