@@ -249,8 +249,8 @@ cache: "force-cache" => সবসময় cache theke data আনবে।
 যখন অনেক user একই পেজ visit করে তখন Next.js server এ data cache বা জমা করে রাখে। তাই একি data বার বার server থেকে আনা লাগে না। যা website কে অনেক দ্রুত করে।
 
 Example:
-cache: "force-cache" => response টা server এ cache করে রাখবে।
-cache: "no-store" => প্রতিবার নতুন data আনবে (SSR)।
+cache: "force-cache" => response টা in memory এবং data cache এ cache করে রাখবে।
+cache: "no-store" => response টা in memory তে cache করে রাখবে।
 next: {revalidate: 10} => cache হবে কিন্তু প্রতি ১০ সেকেন্ড পর পর data update হবে (ISR)।
 
 Data Flow:
@@ -279,13 +279,12 @@ Note: You can Revalidate the Data cache.
 
 প্রথমবার fetch → ডেটা আনা → ক্যাশে রাখা
 
-on-demand revalidate → সেই ক্যাশ মুছে ফেলা
+on-demand revalidate → সেই ক্যাশ purge বা মুছে ফেলে
 
 ক্যাশ মুছে গেলে পরের fetch → আবার MISS → ডেটা আবার সোর্স থেকে আনা
 
 **Note:** The Difference between on demand revalidation and time-based revalidation?
 Ans:
-<br>
 on-demand revalidate → ক্যাশ মুছে ফেলে।
-<br>
+
 time-based revalidate → ক্যাশ মুছে ফেলে না, শুধু নতুন ডেটা তৈরি করে
