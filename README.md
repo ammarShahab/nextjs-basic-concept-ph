@@ -229,8 +229,10 @@ There is so many features in nextjs u need to explore
 **ii. Data Cache:**
 As the Next.js customize the fetch and which has a built in cache method which will save the data in server cache which comes from the server.
 
-There are 2 types of fetch cache
-a. Browser fetch cache (Client Side):
+**There are 2 types of fetch cache**
+<br>
+
+**a. Browser fetch cache (Client Side):**
 প্রতিবার আপনি যখন এক্তি ওয়েবসাইট এ জাবেন browser এর cache থেকে data দেখাবে না server থেকে data দেখাবে তা নিয়ন্ত্রণ করে। যখন তুমি ব্রাউজারে fetch() করো, তখন cache অপশন ব্রাউজারের HTTP cache কীভাবে ব্যবহার হবে তা ঠিক করে।
 
 example:
@@ -239,7 +241,7 @@ cache: "no-store" => কোন cache ব্যাবহার করবে ন�
 cache: "reload" => server থেকে নতুন data আনবে।
 cache: "force-cache" => সবসময় cache theke data আনবে।
 
-b. Next.js fetch cache (Server Sided):
+**b. Next.js fetch cache (Server Sided):**
 যখন অনেক user একই পেজ visit করে তখন Next.js server এ data cache বা জমা করে রাখে। তাই একি data বার বার server থেকে আনা লাগে না। যা website কে অনেক দ্রুত করে।
 
 Example:
