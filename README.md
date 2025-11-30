@@ -58,7 +58,7 @@ Installation
 A. What are the Rendering Options (SSR, SSG, ISR) or Next js rendering strategies?
 Ans:
 
-⭐ 1. SSR – Server-Side Rendering
+### ⭐ 1. SSR – Server-Side Rendering
 
 HTML is generated on every request.
 Always fetches fresh data.
@@ -92,7 +92,7 @@ i. Low performance
 Flow: request => server => data fetch => render html in server => then render html in browser
 Note: as two types of rendering that's why performance is slow.
 
-⭐ 2. SSG – Static Site Generation
+### ⭐ 2. SSG – Static Site Generation
 
 HTML is generated once during build time.
 Fastest performance.
@@ -121,7 +121,7 @@ i. frequently changed dynamic data cannot be handled properly
 
 Flow: request => hits CDN(Content Delivery Network) => pre-render the html => send to browser
 
-⭐ 3. ISR – Incremental Static Regeneration also known as Hybrid Rendering (Combination of SSG and SSR)
+### ⭐3. ISR – Incremental Static Regeneration also known as Hybrid Rendering (Combination of SSG and SSR)
 
 Static page that updates automatically after an interval.
 You get performance of SSG but with auto refresh.
@@ -152,7 +152,8 @@ i. Page is static initially
 ii. After x seconds, the next visitor triggers background regeneration
 iii. Updated page is shown to everyone
 
-⭐ 4. CSR – Client Side Rendering
+### ⭐ 4. CSR – Client Side Rendering
+
 Performance:
 i. First load is slow
 ii. update is fast
@@ -167,7 +168,8 @@ Flow: server fetches the data => serializable payload (i.e data is send as chunk
 B. Next js caching flow?
 => Next.js improves your application's performance and reduces costs (cost is depends on per request call so to reduce the cost by using caching) by caching rendering work and data requests.
 
-What is the 3W(What, When, Where) & 3H(How, How Often, How long) framework?
+### What is the 3W(What, When, Where) & 3H(How, How Often, How long) framework?
+
 =>It is used for engineering purpose which is a rendering decision guide.
 
 3W:
@@ -180,7 +182,7 @@ How => How data will fetch (build time, run time, client fetch)
 How often => How often does it change (second, minutes, days)
 How long => How long should u cache (short, medium, forever)
 
-Following are different caching mechanisms and their purpose:
+### Following are different caching mechanisms and their purpose:
 
 | Mechanism               | What                       | Where  | Purpose                                         | Duration                        |
 | ----------------------- | -------------------------- | ------ | ----------------------------------------------- | ------------------------------- |
@@ -189,7 +191,7 @@ Following are different caching mechanisms and their purpose:
 | **Full Route Cache**    | HTML and RSC payload       | Server | Reduce rendering cost and improve performance   | Persistent (can be revalidated) |
 | **Router Cache**        | RSC Payload                | Client | Reduce server requests on navigation            | User session or time-based      |
 
-i. Request Memoization (It's a react feature not a next js feature):
+**i. Request Memoization (It's a react feature not a next js feature):**
 The fetch method which is used in Next.js is customized by Next.js. Using fetch when u hit any url it will memorize the data on first hit. If u hit second time in the same url it will not send the request in server because after second hit the data will come from the request memoization where the data is cached.
 
 Example:
@@ -224,7 +226,7 @@ Data Flow (Single Render Pass)
 Note: Memoization only worked in get request
 There is so many features in nextjs u need to explore
 
-ii. Data Cache:
+**ii. Data Cache:**
 As the Next.js customize the fetch and which has a built in cache method which will save the data in server cache which comes from the server.
 
 There are 2 types of fetch cache
@@ -255,17 +257,18 @@ Data Flow:
 "/b" ---> fetch('', {cache:no-store}) ----------> Miss -----------> |---------> Skip----->| -------- Hit -----> | <---------------------------------------------------- Set <-----------------------------------------------------|
 
 Note: You can Revalidate the Data cache.
-Revalidation in Data cache is two types
+
+**Revalidation in Data cache is two types**
 
 </br>
 
-a. Time Based revalidation: Revalidate data after a certain amount of time
+**a. Time Based revalidation: Revalidate data after a certain amount of time**
 
 <p align="center">
   <img src="/public/img/time-based-revalidation.avif" width="500" />
 </p>
 
-b. On Demand revalidation: Revalidate data based on an event (e.g. form submission). On-demand revalidation can use a tag-based or path-based approach to revalidate groups of data at once.
+**b. On Demand revalidation: Revalidate data based on an event (e.g. form submission). On-demand revalidation can use a tag-based or path-based approach to revalidate groups of data at once.**
 
 <p align="center">
   <img src="/public/img/on-demand-revalidation.avif" width="500" />
@@ -275,6 +278,6 @@ b. On Demand revalidation: Revalidate data based on an event (e.g. form submissi
 
 on-demand revalidate → সেই ক্যাশ মুছে ফেলা
 
-time-based revalidate → ক্যাশ মুছে ফেলে না, শুধু নতুন ডেটা তৈরি করে
-
 ক্যাশ মুছে গেলে পরের fetch → আবার MISS → ডেটা আবার সোর্স থেকে আনা
+
+**Note:** The Difference between on demand revalidation
