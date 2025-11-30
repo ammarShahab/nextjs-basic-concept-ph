@@ -209,15 +209,6 @@ const item = await getItem() // cache HIT
 
 Following is the flow chart of request memoization
 
-Route: `/a`
-
-               SERVER
-
-───────────────────────────────────────────────
-In-memory Request Memoization
-(stores function returns)
-───────────────────────────────────────────────
-
 Data Flow (Single Render Pass)
 
 1. fetch('/item/1') → MISS (request memoization i.e cache miss) → HIT (Data Source) → SET (memoize i.e set data in cache)
@@ -268,14 +259,22 @@ Revalidation in Data cache is two types
 
 </br>
 
-i. Time Based revalidation: Revalidate data after a certain amount of time
+a. Time Based revalidation: Revalidate data after a certain amount of time
 
 <p align="center">
   <img src="/public/img/time-based-revalidation.avif" width="500" />
 </p>
 
-ii. On Demand revalidation: Revalidate data based on an event (e.g. form submission). On-demand revalidation can use a tag-based or path-based approach to revalidate groups of data at once.
+b. On Demand revalidation: Revalidate data based on an event (e.g. form submission). On-demand revalidation can use a tag-based or path-based approach to revalidate groups of data at once.
 
 <p align="center">
   <img src="/public/img/on-demand-revalidation.avif" width="500" />
 </p>
+
+প্রথমবার fetch → ডেটা আনা → ক্যাশে রাখা
+
+on-demand revalidate → সেই ক্যাশ মুছে ফেলা
+
+time-based revalidate → ক্যাশ মুছে ফেলে না, শুধু নতুন ডেটা তৈরি করে
+
+ক্যাশ মুছে গেলে পরের fetch → আবার MISS → ডেটা আবার সোর্স থেকে আনা
