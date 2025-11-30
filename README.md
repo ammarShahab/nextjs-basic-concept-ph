@@ -265,6 +265,9 @@ Data Flow:
 
 Note: You can Revalidate the Data cache.
 Revalidation in Data cache is two types
+
+</br>
+
 i. Time Based revalidation: Revalidate data after a certain amount of time
 
 <p align="center">
@@ -272,3 +275,7 @@ i. Time Based revalidation: Revalidate data after a certain amount of time
 </p>
 
 ii. On Demand revalidation: Revalidate data based on an event (e.g. form submission). On-demand revalidation can use a tag-based or path-based approach to revalidate groups of data at once.
+
+<p align="center">
+  <img src="/public/img/on-demand-revalidation.avif" width="500" />
+</p>
