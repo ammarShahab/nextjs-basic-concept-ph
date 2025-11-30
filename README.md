@@ -285,5 +285,7 @@ on-demand revalidate → সেই ক্যাশ মুছে ফেলা
 
 **Note:** The Difference between on demand revalidation and time-based revalidation?
 Ans:
+<br>
 on-demand revalidate → ক্যাশ মুছে ফেলে।
+<br>
 time-based revalidate → ক্যাশ মুছে ফেলে না, শুধু নতুন ডেটা তৈরি করে
