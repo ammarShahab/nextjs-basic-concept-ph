@@ -189,7 +189,7 @@ Following are different caching mechanisms and their purpose:
 | **Full Route Cache**    | HTML and RSC payload       | Server | Reduce rendering cost and improve performance   | Persistent (can be revalidated) |
 | **Router Cache**        | RSC Payload                | Client | Reduce server requests on navigation            | User session or time-based      |
 
-Request Memoization:
+i. Request Memoization (It's a react feature not a next js feature):
 The fetch method which is used in Next.js is customized by Next.js. Using fetch when u hit any url it will memorize the data on first hit. If u hit second time in the same url it will not send the request in server because after second hit the data will come from the request memoization where the data is cached.
 
 Example:
@@ -220,14 +220,55 @@ In-memory Request Memoization
 
 Data Flow (Single Render Pass)
 
-1. fetch('/item/1') → MISS (request memoization) → HIT (Data Source) → SET (memoize)
-2. fetch('/item/1') → HIT (memoized)
-3. fetch('/item/1') → HIT (memoized)
+1. fetch('/item/1') → MISS (request memoization i.e cache miss) → HIT (Data Source) → SET (memoize i.e set data in cache)
+2. fetch('/item/1') → HIT (memoized i.e cache hit)
+3. fetch('/item/1') → HIT (memoized i.e cache hit)
 
 ### Summary
 
-- First fetch = **MISS** memoization, then hits the data source, then memoized.
-- Subsequent fetches in the same render pass = **HIT** from memoization.
+- First fetch = **MISS** memoization, then hits the data source or cached (as the first time there is no cache it hits the data source), then memoized in cache.
+- Subsequent fetches in the same render pass = **HIT** from memoization i.e cache which set during return the data.
 - No additional server or data source calls occur during the same request cycle.
 
+Note: Memoization only worked in get request
 There is so many features in nextjs u need to explore
+
+ii. Data Cache:
+As the Next.js customize the fetch and which has a built in cache method which will save the data in server cache which comes from the server.
+
+There are 2 types of fetch cache
+a. Browser fetch cache (Client Side):
+প্রতিবার আপনি যখন এক্তি ওয়েবসাইট এ জাবেন browser এর cache থেকে data দেখাবে না server থেকে data দেখাবে তা নিয়ন্ত্রণ করে। যখন তুমি ব্রাউজারে fetch() করো, তখন cache অপশন ব্রাউজারের HTTP cache কীভাবে ব্যবহার হবে তা ঠিক করে।
+
+example:
+cache: "default" => প্রয়োজন হলে browser cache ব্যাবহার করবে।
+cache: "no-store" => কোন cache ব্যাবহার করবে না।
+cache: "reload" => server থেকে নতুন data আনবে।
+cache: "force-cache" => সবসময় cache theke data আনবে।
+
+b. Next.js fetch cache (Server Sided):
+যখন অনেক user একই পেজ visit করে তখন Next.js server এ data cache বা জমা করে রাখে। তাই একি data বার বার server থেকে আনা লাগে না। যা website কে অনেক দ্রুত করে।
+
+Example:
+cache: "force-cache" => response টা server এ cache করে রাখবে।
+cache: "no-store" => প্রতিবার নতুন data আনবে (SSR)।
+next: {revalidate: 10} => cache হবে কিন্তু প্রতি ১০ সেকেন্ড পর পর data update হবে (ISR)।
+
+Data Flow:
+| -----------------------------------Server-------------------------------------------------------------------- |
+| ------------------------------------------------------------------------------------------------------------- |
+|---------Rendering---------------------|-----Request Memoization------|----Data cache-------|---Data Source--- |
+
+"/a" ---> fetch('', {cache:force-cache}) ----------> Miss -----------> |---------> Miss----->| ------> Hit----->| <---------------------------------------------------- Set <------------------------ Set <-----------------------|
+
+"/b" ---> fetch('', {cache:no-store}) ----------> Miss -----------> |---------> Skip----->| -------- Hit -----> | <---------------------------------------------------- Set <-----------------------------------------------------|
+
+Note: You can Revalidate the Data cache.
+Revalidation in Data cache is two types
+i. Time Based revalidation: Revalidate data after a certain amount of time
+
+<p align="center">
+  <img src="/public/img/time-based-revalidation.avif" width="500" />
+</p>
+
+ii. On Demand revalidation: Revalidate data based on an event (e.g. form submission). On-demand revalidation can use a tag-based or path-based approach to revalidate groups of data at once.
