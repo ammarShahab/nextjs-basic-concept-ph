@@ -268,13 +268,13 @@ Note: You can Revalidate the Data cache.
 **a. Time Based revalidation: Revalidate data after a certain amount of time**
 
 <p align="center">
-  <img src="/public/img/time-based-revalidation.avif" width="500" />
+  <img src="/public/img/time-based-revalidation.avif" width="800" />
 </p>
 
 **b. On Demand revalidation: Revalidate data based on an event (e.g. form submission). On-demand revalidation can use a tag-based or path-based approach to revalidate groups of data at once.**
 
 <p align="center">
-  <img src="/public/img/on-demand-revalidation.avif" width="500" />
+  <img src="/public/img/on-demand-revalidation.avif" width="800" />
 </p>
 
 প্রথমবার fetch → ডেটা আনা → ক্যাশে রাখা
@@ -283,4 +283,7 @@ on-demand revalidate → সেই ক্যাশ মুছে ফেলা
 
 ক্যাশ মুছে গেলে পরের fetch → আবার MISS → ডেটা আবার সোর্স থেকে আনা
 
-**Note:** The Difference between on demand revalidation
+**Note:** The Difference between on demand revalidation and time-based revalidation?
+Ans:
+on-demand revalidate → ক্যাশ মুছে ফেলে।
+time-based revalidate → ক্যাশ মুছে ফেলে না, শুধু নতুন ডেটা তৈরি করে
