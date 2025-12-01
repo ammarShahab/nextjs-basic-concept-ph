@@ -154,6 +154,17 @@ iii. Updated page is shown to everyone
 
 ### ⭐ 4. CSR – Client Side Rendering
 
+-Page loads with minimal or empty html.
+-All data fetching and rendering is performed inside the browser with javascript
+-the UI is build after page loads, Using react on the client side
+
+When to use:
+-When u need browser specific features like hooks, local stat, document/window
+-When SEO is not important
+-Data must be fetched after page loads. e.g user-specific data, dashboard
+
+**Note:** To enable CSR in the App router you must you write "use-client"
+
 Performance:
 i. First load is slow
 ii. update is fast
@@ -162,11 +173,46 @@ Best for: Dashboard, chat apps, Analytics
 
 Flow: Request => Fetch Data => parse backend data => Render in browser
 
+### What is the normal webpage rendering process of webpage in client and server (LWS)?
+
+Ans: url is hit => request go to server => server fetch data from database and creates webpage => in response server sends the html, css and useful javascript in browser (Note: Javascript is not rendered in server, it renders in browser to make the page interactive. The process of page interactive when javascript renders in browser is called Hydration)
+
+### What is the react and nextjs rendering process (LWS)?
+
+Ans: url is hit => request go to server => server fetch data from database => in server generates react tree which contains both server component (e.g. show data, creates html, css) and client component (e.g. Button) => Nextjs renders server component in server i.e creates html and sends to the browser and to generate the react tree in the browser nextjs sends a file which creates a react tree without using react or next.js which is called RSC Payload (it's a kind of a log book which contains process of how nextjs generates the component in server). So in the browser there is no use of react or next.js library and on the other hand server also sends the client component as an empty box to the browser with essential js, also sends react or next.js library to convert the jsx to html in browser.
+
 What is RSC - React Server Component?
 Flow: server fetches the data => serializable payload (i.e data is send as chunk) => in client side minimum js is loaded which increase the performance
 
 B. Next js caching flow?
 => Next.js improves your application's performance and reduces costs (cost is depends on per request call so to reduce the cost by using caching) by caching rendering work and data requests.
+
+### 3W 3H Framework briefly (LWS)
+
+Ans:
+
+<ol>
+<li>What is the caching strategy</li>
+<li>Where is cache stored</li>
+<li>Why caching or whats's the benefit of this strategy</li>
+<li>How long (duration) cache is valid</li>
+<li>How to refresh (revalidation) cache</li>
+<li>How to ignore or opt out (invalid) of the caching strategy</li>
+</ol>
+
+### Caching strategy (LWS) or Answer of the 3W 3H Framework question
+
+<ol>
+<li>যদি client side থেকে কোন route এ hit করে তখন নিজেকে প্রশ্ন করে আমি কি server এ যাব নাকি browser মধ্যে তা save করা আছে (যদি আমি আগে কখনও visit করে থাকি) এই question টা করে first এ router এ <strong>Router cache এ</strong> which present in client side.</li>
+<li>If the step 1 is false, then it goes to server then server will render the react tree and raise the question should i render the react tree which is asked in <strong> Full Route cache </strong>. If any one render the react tree previously on request no need to rerender it.  Here nextjs cached the previously rerendered page  in <strong> Full Route cache </strong>, if any one hit the route it sends the rerendered page (previously generated page in Full Route cache) </li>
+<li>If the step 2 is false i.e it needs to render the page as the page contains multiple component where some of the component needs the multiple data fetching by fetch request or db fetching. It will ask the question to <strong> Request Memoization  </strong> about the only data fetching request output is cached in Request Memoization or need to fetch from the source?</li>
+<li>If the step 3 is false i.e it needs to fetch from the db or other source for network request. Before the network request it ask the another question that should i called network request or is cached in <strong> Data Cache </strong> in server for data fetching request output.  </li>
+<li>If the step 4 is false then it hits the api for data fetching from db or other sources. When it response the data from the source it will save the data in the  <strong> Data Cache </strong> for the next user.</li>
+</ol>
+
+<p align="center">
+  <img src="/public/img/next-js-caching-strategies.jpg" width="800" />
+</p>
 
 ### What is the 3W(What, When, Where) & 3H(How, How Often, How long) framework?
 
@@ -263,7 +309,7 @@ Note: You can Revalidate the Data cache.
 
 **Revalidation in Data cache is two types**
 
-</br>
+</li>
 
 **a. Time Based revalidation: Revalidate data after a certain amount of time**
 
